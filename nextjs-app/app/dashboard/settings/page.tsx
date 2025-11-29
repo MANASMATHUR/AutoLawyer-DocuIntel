@@ -30,10 +30,23 @@ export default function SettingsPage() {
     const fetchSettings = async () => {
         try {
             const res = await fetch('/api/settings');
+            if (!res.ok) {
+                console.error('Failed to fetch settings:', res.statusText);
+                // Keep default settings if fetch fails
+                return;
+            }
             const data = await res.json();
-            setSettings(data);
+            if (data && !data.error) {
+                // Merge with existing settings structure
+                setSettings({
+                    profile: data.profile || settings.profile,
+                    notifications: data.notifications || settings.notifications,
+                    appearance: data.appearance || settings.appearance,
+                });
+            }
         } catch (error) {
             console.error('Failed to fetch settings:', error);
+            // Keep default settings on error
         } finally {
             setLoading(false);
         }
@@ -42,16 +55,24 @@ export default function SettingsPage() {
     const handleSave = async () => {
         setSaving(true);
         try {
-            await fetch('/api/settings', {
+            const res = await fetch('/api/settings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(settings),
             });
-            // Show success toast (mock)
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || 'Failed to save settings');
+            }
+            const data = await res.json();
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            // Show success message
             alert('Settings saved successfully!');
-        } catch (error) {
+        } catch (error: any) {
             console.error('Failed to save settings:', error);
-            alert('Failed to save settings');
+            alert(error.message || 'Failed to save settings. Please try again.');
         } finally {
             setSaving(false);
         }

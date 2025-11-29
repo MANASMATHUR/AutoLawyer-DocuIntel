@@ -48,7 +48,13 @@ export async function GET(request: NextRequest) {
             });
         }
 
-        return NextResponse.json(settings);
+        // Convert to plain object and return only the needed fields
+        const settingsObj = settings.toObject();
+        return NextResponse.json({
+            profile: settingsObj.profile || {},
+            notifications: settingsObj.notifications || {},
+            appearance: settingsObj.appearance || {},
+        });
     } catch (error) {
         console.error('Settings fetch error:', error);
         return NextResponse.json(
@@ -73,11 +79,23 @@ export async function POST(request: NextRequest) {
 
         const settings = await Settings.findOneAndUpdate(
             { userId: 'demo-user' },
-            { $set: body },
+            { 
+                $set: {
+                    profile: body.profile,
+                    notifications: body.notifications,
+                    appearance: body.appearance,
+                }
+            },
             { new: true, upsert: true }
         );
 
-        return NextResponse.json(settings);
+        // Convert to plain object and return only the needed fields
+        const settingsObj = settings.toObject();
+        return NextResponse.json({
+            profile: settingsObj.profile || {},
+            notifications: settingsObj.notifications || {},
+            appearance: settingsObj.appearance || {},
+        });
     } catch (error) {
         console.error('Settings update error:', error);
         return NextResponse.json(

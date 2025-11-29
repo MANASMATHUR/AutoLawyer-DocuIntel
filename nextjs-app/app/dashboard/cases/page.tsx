@@ -33,8 +33,13 @@ export default function CasesPage() {
     const fetchCases = async () => {
         try {
             const res = await fetch('/api/cases');
+            if (!res.ok) {
+                console.error('Failed to fetch cases:', res.statusText);
+                setCases([]);
+                return;
+            }
             const data = await res.json();
-            if (data.cases) {
+            if (data.cases && Array.isArray(data.cases)) {
                 // Compute risk level from summary for each case
                 const casesWithRisk = data.cases.map((c: Case) => {
                     let risk: 'High' | 'Medium' | 'Low' = 'Low';
@@ -46,12 +51,17 @@ export default function CasesPage() {
                             risk = 'Medium';
                         }
                     }
-                    return { ...c, risk };
+                    // Ensure date field exists
+                    const date = c.date || (c as any).createdAt || new Date().toISOString();
+                    return { ...c, date, risk };
                 });
                 setCases(casesWithRisk);
+            } else {
+                setCases([]);
             }
         } catch (error) {
             console.error('Failed to fetch cases:', error);
+            setCases([]);
         } finally {
             setLoading(false);
         }
@@ -137,10 +147,14 @@ export default function CasesPage() {
                                         <div className="flex items-center gap-3 mt-1 text-sm text-gray-400">
                                             <span className="flex items-center gap-1">
                                                 <Clock size={14} />
-                                                {caseItem.date ? new Date(caseItem.date).toLocaleDateString() : 'N/A'}
+                                                {caseItem.date ? new Date(caseItem.date).toLocaleDateString('en-US', { 
+                                                    year: 'numeric', 
+                                                    month: 'short', 
+                                                    day: 'numeric' 
+                                                }) : 'N/A'}
                                             </span>
                                             <span>•</span>
-                                            <span>{caseItem.type}</span>
+                                            <span>{caseItem.type || 'Contract'}</span>
                                         </div>
                                     </div>
                                 </div>
