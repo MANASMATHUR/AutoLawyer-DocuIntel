@@ -103,7 +103,7 @@ modal deploy autolawyer-mcp/modal_app.py
 4. **Review Results:** View clause risk matrix, executive summary, action plan, redlines, and audit logs
 5. **Download:** Export executive summary as text file
 
-## 🎯 Judges-Winning Features
+## Winning Features
 
 ### ✅ Accuracy & Explainability
 - Clause-level outputs with exact quote snippets and source document references
@@ -177,10 +177,4 @@ jupyter notebook autolawyer-mcp/notebooks/
 - **Modal Integration:** Set `USE_MODAL_SERVERLESS=1` to offload heavy planning/review to Modal's GPU infrastructure
 - **MongoDB:** Optional but recommended for production case persistence and audit trails
 
-## 🏆 Why This Wins
 
-1. **Modern Stack:** Next.js full-stack = production-ready, scalable, familiar to judges
-2. **Multi-Provider:** Leverages all sponsor credits intelligently
-3. **Full Autonomy:** Complete Planner/Worker/Reviewer loop with self-correction
-4. **Production Ready:** Next.js + Python + MongoDB = scalable deployment
-5. **Judges' Priorities:** Every scoring criterion addressed with polished implementation
