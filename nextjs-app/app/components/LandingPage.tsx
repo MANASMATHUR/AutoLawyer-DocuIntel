@@ -36,7 +36,7 @@ export default function LandingPage() {
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7000FF] to-[#00F0FF] flex items-center justify-center">
                         <Shield className="w-5 h-5 text-white" />
                     </div>
-                    <span className="text-xl font-bold font-['Outfit'] tracking-tight">DocuIntel 2.0</span>
+                    <span className="text-xl font-bold font-['Outfit'] tracking-tight">AutoLawyer</span>
                 </div>
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
                     <a href="#features" className="hover:text-white transition-colors">
@@ -329,7 +329,7 @@ export default function LandingPage() {
 
             {/* Footer */}
             <footer className="relative z-10 border-t border-white/10 py-10 px-6 text-center text-sm text-gray-400">
-                Built for hackathons & enterprise pilots · DocuIntel 2.0 · Planner → Worker → Reviewer autonomy loop
+                Built for hackathons & enterprise pilots · AutoLawyer · Planner → Worker → Reviewer autonomy loop
             </footer>
         </div>
     )

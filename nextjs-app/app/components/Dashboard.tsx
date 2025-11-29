@@ -39,7 +39,7 @@ export default function Dashboard({ caseData, onNewCase }: DashboardProps) {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7000FF] to-[#00F0FF] flex items-center justify-center">
               <Shield className="w-5 h-5 text-white" />
             </div>
-            <h1 className="text-xl font-bold font-['Outfit'] tracking-tight text-white">DocuIntel 2.0</h1>
+            <h1 className="text-xl font-bold font-['Outfit'] tracking-tight text-white">AutoLawyer</h1>
           </div>
           <p className="tagline pl-10">AI Legal Assistant</p>
         </div>
