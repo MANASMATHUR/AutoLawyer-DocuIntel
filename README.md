@@ -1,21 +1,21 @@
-# AutoLawyer-MCP
+# AutoLawyer
 
-**AutoLawyer-MCP** is an autonomous MCP agent that ingests contracts (PDF/DOCX), extracts clause-level structure, scores and explains legal risk, proposes precise redlines, produces an executive one-pager & remediation plan, and compares multi-doc consistency — all in a modern **Next.js + Python hybrid stack** with multi-model orchestration and a Planner → Worker → Reviewer autonomy loop.
+**AutoLawyer** is an autonomous  agent that ingests contracts (PDF/DOCX), extracts clause-level structure, scores and explains legal risk, proposes precise redlines, produces an executive one-pager & remediation plan, and compares multi-doc consistency — all in a modern **Next.js + Python hybrid stack** with multi-model orchestration and a Planner → Worker → Reviewer autonomy loop.
 
 ## 🏗️ Architecture (Next.js + Python)
 
 - **Frontend + Backend (Next.js):** Full-stack Next.js app with API routes and React components
 - **Agent Core (Python):** Planner/Worker/Reviewer loop with smart model router + execution policies
-- **MCP Tool Layer (Python):** document ingestion, clause segmentation, clause RAG, risk scoring, redline generation, doc comparator, reporting
+- ** Tool Layer (Python):** document ingestion, clause segmentation, clause RAG, risk scoring, redline generation, doc comparator, reporting
 - **Storage:** MongoDB for cases/audit logs + ChromaDB for clause embeddings
 - **Serverless (Modal):** Optional GPU-accelerated planning/review tasks via Modal functions
 
 ```
-autolawyer-mcp/
+autolawyer/
 ├─ agent/              # core agent loop, router, policies
-├─ mcp_tools/          # document_reader, clause_segmenter, clause_rag, etc.
+├─ tools/          # document_reader, clause_segmenter, clause_rag, etc.
 ├─ services/           # Python service scripts for Next.js API calls
-├─ modal_app.py        # Modal serverless functions
+├─ modal_app.py        # Modal serverless functions(optional)
 ├─ storage/            # MongoDB integration
 ├─ ui/                 # Gradio (legacy, optional)
 ├─ notebooks/          # evaluation + metrics notebooks
@@ -56,10 +56,6 @@ OPENAI_API_KEY=sk-...
 # Nebius
 NEBIUS_API_KEY=...
 NEBIUS_BASE_URL=https://api.studio.nebius.ai/v1/
-
-# SambaNova
-SAMBA_NOVA_API_KEY=...
-SAMBA_NOVA_BASE_URL=https://api.sambanova.ai/v1/
 
 # Blaxel
 BLAXEL_API_KEY=...
@@ -104,44 +100,44 @@ modal deploy autolawyer-mcp/modal_app.py
 
 ## Winning Features
 
-### ✅ Accuracy & Explainability
+###  Accuracy & Explainability
 - Clause-level outputs with exact quote snippets and source document references
 - Risk explanations with evidence spans
 - RAG-powered clause retrieval with citations
 
-### ✅ Autonomy
+###  Autonomy
 - Full Planner → Worker → Reviewer cycle with automatic re-planning on failures
 - Retry policies with exponential backoff
 - Self-verification via Reviewer checks
 
-### ✅ Polished UX
+###  UX
 - Modern Next.js UI with real-time updates
 - Clause viewer with severity badges
 - Diff editor for redline patches
 - Downloadable executive summaries
 
-### ✅ Traceability
+### Traceability
 - Complete audit logs with model/provider used, timestamps, prompts, and results
 - MongoDB persistence for case history
 - Step-by-step execution logs visible in UI
 
-### ✅ Multi-Doc Consistency
+###  Multi-Doc Consistency
 - SOW vs MSA comparison checks
 - Clause-level conflict detection
 - Consistency heatmap visualization
 
-### ✅ Smart Model Routing
-- Multi-provider support (OpenAI, Nebius, SambaNova, Blaxel, Modal)
+###  Smart Model Routing
+- Multi-provider support (OpenAI, Nebius, Blaxel, Modal)
 - Credit-aware token budget tracking per provider
 - Automatic fallback to offline heuristics when credits exhausted
 - Modal serverless GPU acceleration for heavy tasks
 
-### ✅ Evaluation
+###  Evaluation
 - Notebooks in `notebooks/` for metrics and benchmarking
 - Sample contracts in `samples/` with ground truth annotations
 - Measurable metrics: clause segmentation F1, risk precision/recall, comparator accuracy
 
-### ✅ Security & Privacy
+###  Security & Privacy
 - Local processing option (`AUTO_LAWYER_OFFLINE=1`)
 - MongoDB for secure case storage
 - Planned redaction mode for PII masking
@@ -171,7 +167,6 @@ jupyter notebook autolawyer-mcp/notebooks/
 
 ## 📝 Notes
 
-- **MCP Compliance:** The agent core maintains MCP (Model Context Protocol) architecture with tool-based execution
 - **Hybrid Stack:** Next.js full-stack for modern web, Python backend for AI/ML - best of both worlds
 - **Modal Integration:** Set `USE_MODAL_SERVERLESS=1` to offload heavy planning/review to Modal's GPU infrastructure
 - **MongoDB:** Optional but recommended for production case persistence and audit trails
