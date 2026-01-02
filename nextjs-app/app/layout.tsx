@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'AutoLawyer-MCP',
-  description: 'Autonomous contract analysis with clause-level risk scoring & redlines',
+  title: 'DocuIntel: Legal AI Assistant',
+  description: 'Production-grade RAG system for intelligent contract analysis, risk scoring, and redline generation.',
 }
 
 export default function RootLayout({

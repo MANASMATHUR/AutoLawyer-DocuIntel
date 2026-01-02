@@ -2,15 +2,16 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileText, BarChart3, Settings, Upload, History, Download, AlertTriangle, CheckCircle, Clock, Shield } from 'lucide-react'
+import { FileText, BarChart3, Settings, Upload, History, Download, AlertTriangle, CheckCircle, Clock, Shield, Activity } from 'lucide-react'
 import FileUploader from './FileUploader'
 import ClauseViewer from './ClauseViewer'
 import RiskDashboard from './RiskDashboard'
 import AgentLogs from './AgentLogs'
 import RedlineViewer from './RedlineViewer'
 import ExecutiveSummary from './ExecutiveSummary'
+import PerformanceDashboard from './PerformanceDashboard'
 
-type Tab = 'upload' | 'clauses' | 'risks' | 'redlines' | 'summary' | 'logs'
+type Tab = 'upload' | 'clauses' | 'risks' | 'redlines' | 'summary' | 'performance' | 'logs'
 
 interface DashboardProps {
   caseData: any
@@ -27,6 +28,7 @@ export default function Dashboard({ caseData, onNewCase }: DashboardProps) {
     { id: 'risks' as Tab, label: 'Risk Analysis', icon: BarChart3 },
     { id: 'redlines' as Tab, label: 'Redlines', icon: AlertTriangle },
     { id: 'summary' as Tab, label: 'Summary', icon: CheckCircle },
+    { id: 'performance' as Tab, label: 'Intelligence', icon: Activity },
     { id: 'logs' as Tab, label: 'Agent Logs', icon: Clock },
   ]
 
@@ -39,7 +41,7 @@ export default function Dashboard({ caseData, onNewCase }: DashboardProps) {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7000FF] to-[#00F0FF] flex items-center justify-center">
               <Shield className="w-5 h-5 text-white" />
             </div>
-            <h1 className="text-xl font-bold font-['Outfit'] tracking-tight text-white">AutoLawyer</h1>
+            <h1 className="text-xl font-bold font-['Outfit'] tracking-tight text-white">DocuIntel</h1>
           </div>
           <p className="tagline pl-10">AI Legal Assistant</p>
         </div>
@@ -128,6 +130,9 @@ export default function Dashboard({ caseData, onNewCase }: DashboardProps) {
               )}
               {activeTab === 'summary' && caseData && (
                 <ExecutiveSummary reports={caseData.reports || {}} caseId={caseData.case_id} />
+              )}
+              {activeTab === 'performance' && (
+                <PerformanceDashboard />
               )}
               {activeTab === 'logs' && caseData && (
                 <AgentLogs logs={caseData.logs || []} />

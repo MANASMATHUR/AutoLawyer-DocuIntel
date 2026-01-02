@@ -20,7 +20,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                             <Shield className="w-5 h-5 text-white" />
                         </div>
                         <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                            AutoLawyer
+                            DocuIntel
                         </span>
                     </div>
                 </div>
@@ -63,8 +63,8 @@ function NavItem({ href, icon, label, active }: { href: string; icon: ReactNode;
         <Link
             href={href}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${active
-                    ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20'
-                    : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20'
+                : 'text-gray-400 hover:bg-white/5 hover:text-white'
                 }`}
         >
             <span className={`group-hover:scale-110 transition-transform ${active ? 'text-blue-400' : ''}`}>

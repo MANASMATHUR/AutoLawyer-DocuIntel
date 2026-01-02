@@ -1,5 +1,5 @@
 {
-  "name": "autolawyer-mcp",
+  "name": "docuintel-legal-ai",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,5 @@
     "install:nextjs": "cd nextjs-app && npm install",
     "install:python": "pip install -r requirements.txt"
   },
-  "description": "AutoLawyer-MCP: Autonomous contract analysis with Next.js + Python"
+  "description": "DocuIntel: Production-grade Legal AI Assistant for contract analysis and RAG"
 }
-

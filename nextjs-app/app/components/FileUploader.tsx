@@ -31,9 +31,9 @@ export default function FileUploader({ onProcessingChange, onCaseCreated }: File
   const handleDrop = useCallback((e: React.DragEvent, type: 'primary' | 'secondary') => {
     e.preventDefault()
     setIsDragging(false)
-    const files = Array.from(e.dataTransfer.files).filter(f => 
-      f.type === 'application/pdf' || 
-      f.name.endsWith('.docx') || 
+    const files = Array.from(e.dataTransfer.files).filter(f =>
+      f.type === 'application/pdf' ||
+      f.name.endsWith('.docx') ||
       f.name.endsWith('.txt')
     )
     if (type === 'primary') {
@@ -58,6 +58,19 @@ export default function FileUploader({ onProcessingChange, onCaseCreated }: File
     } else {
       setSecondaryFiles(prev => prev.filter((_, i) => i !== index))
     }
+  }
+
+  const loadSampleContract = () => {
+    const sampleContent = `SERVICE LEVEL AGREEMENT
+    
+    1. INDEMNIFICATION. The Vendor shall indemnify and hold harmless the Customer from any claims...
+    2. LIMITATION OF LIABILITY. Notwithstanding anything to the contrary, the Vendor's liability shall not exceed $10,000.
+    3. TERMINATION. Either party may terminate this agreement with 30 days notice.
+    4. GOVERNING LAW. This agreement is governed by the laws of Delaware.`;
+
+    const file = new File([sampleContent], "sample-agreement.txt", { type: "text/plain" });
+    setPrimaryFiles([file]);
+    setInstructions("Analyze liability and indemnification clauses. Suggest more balanced terms.");
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -114,8 +127,17 @@ export default function FileUploader({ onProcessingChange, onCaseCreated }: File
   return (
     <div className="file-uploader">
       <div className="upload-section">
-        <h2 className="section-title">Upload Contracts</h2>
-        
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="section-title mb-0">Upload Contracts</h2>
+          <button
+            onClick={loadSampleContract}
+            className="text-xs px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition-all flex items-center gap-2"
+          >
+            <FileText size={14} />
+            Load Sample Contract
+          </button>
+        </div>
+
         {/* Primary Documents */}
         <div className="upload-area">
           <label className="upload-label">Primary Contracts *</label>
@@ -244,7 +266,7 @@ export default function FileUploader({ onProcessingChange, onCaseCreated }: File
           ) : (
             <>
               <Upload size={20} />
-              Run AutoLawyer Agent
+              Run DocuIntel Assistant
             </>
           )}
         </button>
